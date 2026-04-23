@@ -22,7 +22,6 @@
   <div class="msg">Redirigiendo...</div>
   <script>
     (async () => {
-      // Obtener el ID de la tarjeta desde la URL: /r/001 → "001"
       const parts = window.location.pathname.split('/').filter(Boolean);
       const cardId = parts[parts.length - 1];
 
@@ -32,13 +31,11 @@
       }
 
       try {
-        // Cargar el archivo de configuración
-        const res = await fetch('../cards.json');
+        const res = await fetch('https://qr-golzio.github.io/qr-nfc/cards.json');
         const cards = await res.json();
-
         const url = cards[cardId];
 
-        if (url) {
+        if (url && url.trim()) {
           window.location.replace(url);
         } else {
           document.querySelector('.msg').textContent = 'Esta tarjeta aún no está configurada.';
